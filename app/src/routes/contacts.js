@@ -2,8 +2,11 @@ const { Router } = require('express');
 const router = Router();
 const { getContacts, createContact, deleteContact, updateContact } = require('../controllers/index');
 
-router.get('/list', getContacts);
+router.get('/', getContacts);
 
-router.post('/create', createContact);
+router.post('/', createContact);
+
+router.put('/', updateContact);
+router.delete('/', deleteContact)
 
 module.exports = router;
