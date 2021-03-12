@@ -6,7 +6,7 @@ router.get('/', getContacts);
 
 router.post('/', createContact);
 
-router.put('/', updateContact);
-router.delete('/', deleteContact)
+router.put('/:id', updateContact);
+router.delete('/:id', deleteContact)
 
 module.exports = router;

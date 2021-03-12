@@ -1,7 +1,7 @@
 const Contact = require('../models/contact')
 
 function getContacts(req, res){
-    Contact.findAll({ attributes: ['id', 'nombre', 'apellido', 'email', 'telefono', 'avatar'] })
+    Contact.findAll({ attributes: ['id', 'nombre', 'apellido', 'email', 'telefono', 'avatar', 'created_at'] })
     .then(users => {
         console.log(users)
         res.json({
@@ -44,13 +44,14 @@ function getContacts(req, res){
 };
 
 async function updateContact(req, res) {
-    const { id, nombre, apellido, email, telefono, avatar } = req.body;
+    const id = req.params.id;
     const contact = await Contact.findByPk(id);
     if (contact == null){
         res.status(404).json({
             message: "This contact don't exist"
         })
     } else{
+        const { nombre, apellido, email, telefono, avatar } = req.body;
         contact.nombre = nombre;
         contact.apellido = apellido;
         contact.email = email;
@@ -72,7 +73,7 @@ async function updateContact(req, res) {
 }
 
 async function deleteContact(req, res){
-    const { id } = req.body;
+    const id = req.params.id;
     const contact = await Contact.findByPk(id);
     if (contact == null){
         res.status(404).json({
