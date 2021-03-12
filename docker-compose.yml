@@ -1,0 +1,32 @@
+version: '3.7'
+
+services:
+
+  db:
+    restart: always
+    ports:
+      - 5432:5432
+    build: postgres
+    networks:
+      - postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+
+  backend:
+    build: app
+    restart: always
+    tty: true
+    ports:
+      - 4000:4000
+    depends_on:
+      - db
+    networks:
+      - postgres
+    volumes:
+      - ./backend:/app/backend
+
+volumes:
+  postgres_data:
+
+networks:
+  postgres:
